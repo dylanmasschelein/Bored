@@ -1,0 +1,31 @@
+@use '../../../partials/variables' as *;
+
+.base {
+	width: 140px;
+	display: flex;
+	margin: 20px 10px;
+	justify-content: center;
+	align-items: center;
+	padding: 10px 0;
+	border: none;
+	border-radius: 5px;
+	transition: 0.3s;
+	cursor: pointer;
+	background: $primary-color;
+	color: white;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+	justify-self: flex-start;
+}
+
+.base:hover {
+	transform: scale(1.01);
+}
+
+.disabled {
+	opacity: 0.4;
+}
+
+.disabled:hover {
+	transform: none;
+}
