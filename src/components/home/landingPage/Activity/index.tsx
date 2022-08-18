@@ -21,7 +21,7 @@ interface IProps {
 const Activity: FC<IProps> = ({ activity, handleDelete, handleLockedActivity, isLocked, hideAction }) => {
 	const { handleFavorite, itemInStorage } = useLocalStorage('activityList', activity);
 	return (
-		<div className={styles.home__card}>
+		<div className={styles.home__card} role="activity-card">
 			<div className={styles.home__card__header}>
 				<h3 className={styles.home__card__title}>{activity.activity}</h3>
 				<p className={styles.home__card__participants}>

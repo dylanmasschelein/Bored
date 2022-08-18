@@ -31,6 +31,7 @@
 	&__btns {
 		@include flex-justify(center, center);
 		max-width: 335px;
+		margin: 0 auto;
 
 		&__secondary {
 			width: 150px;

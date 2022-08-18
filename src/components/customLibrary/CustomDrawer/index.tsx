@@ -20,7 +20,7 @@ import ParticipantsFilter from './Participants';
 import PrimaryButton from '../../customLibrary/PrimaryButton';
 import EffortFilter from './Effort';
 import { effortLevels, prices } from '../../../static/global_vars';
-import { useWindowWidth } from '@react-hook/window-size';
+// import { useWindowWidth } from '@react-hook/window-size';
 // import EffortFilter from './Effort';
 
 interface IProps {
@@ -72,11 +72,12 @@ const activities: IActivityObj[] = [
 ];
 
 const CustomDrawer: FC<IProps> = ({ open, toggleDrawer, handleChange, filter, handleFilter, clearFilter }) => {
-	const screenWidth = useWindowWidth();
+	// const screenWidth = useWindowWidth();
 	return (
 		<SwipeableDrawer
 			aria-role="swipeable-drawer"
-			anchor={screenWidth < 767 ? 'bottom' : 'left'}
+			anchor={'bottom'}
+			// anchor={screenWidth < 450 ? 'bottom' : 'left'}
 			open={open}
 			onClose={toggleDrawer}
 			onOpen={toggleDrawer}
