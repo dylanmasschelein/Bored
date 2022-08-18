@@ -29,6 +29,7 @@ const Actions: FC<IProps> = ({
 	const locked = isLocked ? isLocked(activity) : undefined;
 	return (
 		<div className={styles.home__card__actions}>
+			
 			<FavoriteIcon
 				className={styles.home__card__actions__icon}
 				sx={{ color: `${favorited ? 'red' : undefined}` }}

@@ -36,6 +36,7 @@ const Effort: FC<IProps> = ({ effort, handleChange, filter }) => {
 
 	return (
 		<div
+		role="effort-option"
 			className={`${styles.filter__btn} ${
 				filter.accessibility === effortValue(effort) ? styles.selected : undefined
 			}`}

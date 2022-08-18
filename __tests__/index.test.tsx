@@ -1,7 +1,9 @@
-import { findAllByRole, render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { findAllByRole, render, screen, fireEvent, waitFor, within } from '@testing-library/react';
 import Home from '../pages/index';
+import mocked from 'ts-jest';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
+import Actions from '../src/components/home/landingPage/Activity/Actions';
 
 // import Activity from '../src/components/home/landingPage/Activity';
 // import LandingPage from '../src/components/home/landingPage';
@@ -9,6 +11,11 @@ import userEvent from '@testing-library/user-event';
 // const randomSpy = jest.spyOn('Math', random)
 // randomSpy.mockReturnValue(0.5)
 
+const localStorageMock = {
+	getItem: jest.fn(),
+	setItem: jest.fn(),
+	clear: jest.fn()
+};
 const mockRepsonse = [
 	{
 		activity: 'Take your dog on a walk',
@@ -57,15 +64,24 @@ const mockRepsonse = [
 	}
 ];
 
-// const singleMockResponse = {
-// 	activity: 'Take your dog on a walk',
-// 	type: 'relaxation',
-// 	participants: 1,
-// 	price: 0,
-// 	link: '',
-// 	key: '9318514',
-// 	accessibility: 0.2
-// };
+const singleMockResponse = {
+	activity: 'Take your dog on a walk',
+	type: 'relaxation',
+	participants: 1,
+	price: 0,
+	link: '',
+	key: '9318514',
+	accessibility: 0.2
+};
+const actionsProps = {
+	isLocked: jest.fn(),
+	handleLockedActivity: jest.fn(),
+	activity: singleMockResponse,
+	handleDelete: jest.fn(),
+	favorited: false,
+	hideAction: false
+};
+
 describe('Home Page', () => {
 	describe('initialized with a default array of responses', () => {
 		beforeEach(() => {
@@ -95,7 +111,7 @@ describe('Home Page', () => {
 
 				expect(speedDial).toBeInTheDocument();
 
-				fireEvent.mouseOver(speedDial);
+				userEvent.hover(speedDial);
 
 				const favoritesOption = screen.getByText(/favorites/i);
 				const filterOption = screen.getByText(/filter/i);
@@ -106,7 +122,31 @@ describe('Home Page', () => {
 			});
 
 			it.todo('clicking favorites navigates to the "/favorites" page');
-			it.todo('clicking filter option opens the "Custom Drawer" component');
+			it('clicking filter option opens the "Custom Drawer" component', () => {
+				const speedDial = screen.getByRole('button', {
+					name: /speeddial/i
+				});
+				userEvent.hover(speedDial);
+
+				const filterOption = screen.getByText(/filter/i);
+				fireEvent.click(filterOption);
+
+				expect(screen.getByRole('heading', { name: /how many participants\?/i })).toBeInTheDocument();
+				expect(screen.getByRole('heading', { name: /activity type/i })).toBeInTheDocument();
+				expect(screen.getByRole('heading', { name: /activity price/i })).toBeInTheDocument();
+				expect(screen.getByRole('heading', { name: /activity effort/i })).toBeInTheDocument();
+
+				const downArrow = screen.getByTestId('KeyboardArrowDownIcon');
+				expect(downArrow).toBeInTheDocument();
+				fireEvent.click(downArrow);
+
+				expect(
+					screen.getByRole('heading', {
+						name: /Bored no more!/i
+					})
+				).toBeInTheDocument();
+			});
+
 			it.todo('clicking random option fetches x amount of new activities');
 		});
 
@@ -116,14 +156,52 @@ describe('Home Page', () => {
 				expect(cards).toHaveLength(5);
 			});
 
-			// describe('Details')
-			it.todo('renders 3 headings for each card');
+			describe('Details', () => {
+				it('renders 3 headings for each card', async () => {
+					const heading1 = screen.getByRole('heading', {
+						name: /Take your dog on a walk/i
+					});
+					const heading2 = screen.getByRole('heading', {
+						name: /Paint the first thing you see/i
+					});
+					const heading3 = screen.getByRole('heading', {
+						name: /Create and follow a savings plan/i
+					});
+					const heading4 = screen.getByRole('heading', {
+						name: /Configure two-factor authentication on your accounts/i
+					});
+					const heading5 = screen.getByRole('heading', {
+						name: /Prepare a 72-hour kit/i
+					});
 
-			// describe('Participants')
-			it.todo('displays an icon with the number of participants the axcticity involves');
+					expect(heading1).toBeInTheDocument();
+					expect(heading2).toBeInTheDocument();
+					expect(heading3).toBeInTheDocument();
+					expect(heading4).toBeInTheDocument();
+					expect(heading5).toBeInTheDocument();
+				});
+			});
 
-			// describe('Type')
-			it.todo('displays capitalized text of the type from the list of available options');
+			describe('Participants', () => {
+				it('displays an icon with the number of participants the activities involve', async () => {
+					const peopleIcon = await screen.findAllByTestId('PeopleIcon');
+					expect(peopleIcon).toHaveLength(5);
+
+					const participantNumber = await screen.findAllByText(/1/i);
+					expect(participantNumber).toHaveLength(5);
+				});
+			});
+
+			describe('Type', () => {
+				it('displays capitalized text of the type from the list of available options', async () => {
+					const typeHeading = await screen.findAllByText(/type:/i);
+					const priceHeading = await screen.findAllByText(/price:/i);
+					const effortHeading = await screen.findAllByText(/effort:/i);
+					expect(typeHeading).toHaveLength(5);
+					expect(priceHeading).toHaveLength(5);
+					expect(effortHeading).toHaveLength(5);
+				});
+			});
 
 			// describe('Price')
 			it.todo('displays 5 dollar signs, bolds a specific amount depending on the price');
@@ -131,62 +209,10 @@ describe('Home Page', () => {
 			// describe('Effort')
 			it.todo('displays 5 percentage signs, bolds a specific amount depending on the price');
 
-			// describe ("Action Icons")
-			it.todo('renders 3 actions for each card');
-
-			// describe('Heart')
-			it.todo('clicking the heart action adds the activity to local storage');
-			it.todo('clicking the heart action changed the color to red');
-
-			// describe('Bin')
-			it.todo('clicking the bin action removed the activity from the activity list');
-
-			// describe('Locked')
-			it.todo('clicking the lock action removed sets the activity to "locked"');
-			it.todo('clicking the random button keeps the locked item in the activity list');
+			
 		});
 
-		describe('Filter Drawer', () => {
-			// describe('Caret toggle')
-			it.todo('icon renders in the header');
-			it.todo('clicking toggles the filter drawer closed');
-
-			// describe('Participants)
-			it.todo('renders a title');
-			it.todo('renders an input');
-			it.todo('renders an increments when the icon is clicks');
-			it.todo('renders an decrements when the icon is clicks');
-
-			// describe('Type')
-			it.todo('renders a title');
-			it.todo('renders a 9 type options all with a title and icon');
-			it.todo('clicking one adds the specific filter to state');
-			it.todo('clicking one then clicking a second replaces the first in state');
-
-			// describe('Price')
-			it.todo('renders a title');
-			it.todo('renders a 6 price options, each with a title');
-			it.todo('clicking one adds the specific filter to state');
-			it.todo('clicking one then clicking a second replaces the first in state');
-
-			// describe('Effort')
-			it.todo('renders a title');
-			it.todo('renders a 6 effort options, each with a title');
-			it.todo('clicking one adds the specific filter to state');
-			it.todo('clicking one then clicking a second replaces the first in state');
-
-			// describe('Buttons')
-			it.todo('both buttons render');
-
-			// describe('Find Activity')
-			it.todo(
-				'clicking tiggers a series of actions: a query is built, fetch functions is called, and a filtered set of activities are returned and set to state'
-			);
-			it.todo('clicking toggles the filter drawer closed');
-
-			// describe('Clear Filter')
-			it.todo('clicking set the filter state fields to empty');
-		});
+		
 	});
 
 	describe('Favorites Page', () => {

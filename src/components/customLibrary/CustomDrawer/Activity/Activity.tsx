@@ -11,6 +11,7 @@ interface IProps {
 
 const Activity: FC<IProps> = ({ activity, handleChange, filter }) => (
 	<div
+		role="type-option"
 		className={`${styles.activity} ${filter.type === activity.type ? styles.selected : undefined}`}
 		onClick={() => handleChange('type', activity.type)}
 	>

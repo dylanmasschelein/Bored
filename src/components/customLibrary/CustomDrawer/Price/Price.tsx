@@ -10,6 +10,7 @@ interface IProps {
 
 const Price: FC<IProps> = ({ price, handleChange, filter }) => (
 	<div
+		role="price-option"
 		className={`${styles.filter__btn} ${filter.price === (price / 5).toString() ? styles.selected : undefined}`}
 		onClick={() => handleChange('price', price ? (price / 5).toString() : '0')}
 	>
