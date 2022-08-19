@@ -1,4 +1,4 @@
-import { useState, useEffect, FC } from 'react';
+import { memo, FC } from 'react';
 import { IHandleFilter } from '../../../types';
 import CustomSpeedDial from '../../customLibrary/CustomSpeedDial';
 import styles from './landing.module.scss';
@@ -19,4 +19,4 @@ const Header: FC<IProps> = ({ toggleDrawer, handleFilter, favoritesPage, title }
 	</div>
 );
 
-export default Header;
+export default memo(Header);

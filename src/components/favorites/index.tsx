@@ -5,11 +5,7 @@ import Activity from '../home/landingPage/Activity';
 import Header from '../home/landingPage/Header';
 import styles from './favorites.module.scss';
 
-interface IProps {
-	// prop: string;
-	// prop1: number;
-	// prop2: string;
-}
+interface IProps {}
 
 const Favorites: FC<IProps> = () => {
 	const { store } = useLocalStorage('activityList');
@@ -19,7 +15,7 @@ const Favorites: FC<IProps> = () => {
 			<div className={styles.favorites}>
 				{store ? (
 					store.map((activity: IActivity, idx: number) => (
-						<Activity key={`${activity.key}-${idx}`} activity={activity} hideAction />
+						<Activity key={`${activity.key}-${idx}`} activity={activity} favorite />
 					))
 				) : (
 					<h1>You have not saved any activities yet!</h1>

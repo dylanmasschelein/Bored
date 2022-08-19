@@ -44,14 +44,17 @@ export const useLocalStorage = (key: string, item?: any) => {
 
 	const findInStorage = (item: any) => {
 		const foundItem = store ? store.find((s: any) => s.key === item.key) : undefined;
-		setItemInStorage(foundItem);
+		setItemInStorage(() => foundItem);
 	};
 
 	useEffect(() => {
 		if (window !== undefined) {
 			setStore(getFromLocalStorage());
-			findInStorage(item);
 		}
+	}, []);
+
+	useEffect(() => {
+		findInStorage(item);
 	}, []);
 
 	return { store, addToStorage, removeActivityFromStorage, findInStorage, itemInStorage, handleFavorite };

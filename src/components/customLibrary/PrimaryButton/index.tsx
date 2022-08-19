@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import defaultStyles from './primary-button.module.scss';
 
 interface IProps {
@@ -20,4 +20,4 @@ const PrimaryButton: FC<IProps> = ({ styles, handleClick, text, disabled, type =
 	</button>
 );
 
-export default PrimaryButton;
+export default memo(PrimaryButton);

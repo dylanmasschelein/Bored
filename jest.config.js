@@ -12,9 +12,12 @@ const customJestConfig = {
     // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
     // if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
     moduleDirectories: ['node_modules', '<rootDir>/'],
+    preset: 'ts-jest',
     testEnvironment: 'jest-environment-jsdom',
     transform: {
         '^.+\\.[jt]sx?$': 'babel-jest',
+        '^.+\\.(ts|tsx)?$': 'ts-jest',
+        "^.+\\.(js|jsx)$": "babel-jest",
         '.+\\.(css|styl|less|sass|scss)$': 'jest-css-modules-transform'
     },
 }

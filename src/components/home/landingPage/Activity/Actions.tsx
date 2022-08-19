@@ -14,7 +14,7 @@ interface IProps {
 	handleDelete?: () => void;
 	handleLockedActivity?: (a: IActivity) => void;
 	isLocked?: (a: IActivity) => boolean;
-	hideAction: boolean | undefined;
+	favorite: boolean | undefined;
 }
 
 const Actions: FC<IProps> = ({
@@ -24,18 +24,17 @@ const Actions: FC<IProps> = ({
 	handleFavorite,
 	handleDelete,
 	activity,
-	hideAction
+	favorite
 }) => {
 	const locked = isLocked ? isLocked(activity) : undefined;
 	return (
 		<div className={styles.home__card__actions}>
-			
 			<FavoriteIcon
 				className={styles.home__card__actions__icon}
-				sx={{ color: `${favorited ? 'red' : undefined}` }}
+				sx={{ color: `${favorited || favorite ? 'red' : undefined}` }}
 				onClick={handleFavorite}
 			/>
-			{!hideAction && (
+			{!favorite && (
 				<>
 					<DeleteIcon className={styles.home__card__actions__icon} onClick={handleDelete} />
 					<LockIcon

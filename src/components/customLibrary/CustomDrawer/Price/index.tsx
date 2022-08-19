@@ -1,4 +1,4 @@
-import { useState, useEffect, FC } from 'react';
+import { useState, useEffect, FC, memo } from 'react';
 import { IHandleChange, IFilterState } from '../../../../types';
 import styles from '../drawer.module.scss';
 import Price from './Price';
@@ -20,4 +20,4 @@ const PriceFilter: FC<IProps> = ({ prices, handleChange, filter }) => (
 	</>
 );
 
-export default PriceFilter;
+export default memo(PriceFilter);

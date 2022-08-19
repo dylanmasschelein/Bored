@@ -74,8 +74,6 @@ const Home: FC<IProps> = ({ defaultActivityList }) => {
 		setFilter(filterState);
 	};
 
-	useEffect(() => {}, [activityList]);
-
 	return (
 		<>
 			{error ? (

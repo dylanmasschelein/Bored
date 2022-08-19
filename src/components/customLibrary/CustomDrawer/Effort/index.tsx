@@ -1,4 +1,4 @@
-import { useState, useEffect, FC } from 'react';
+import { FC, memo } from 'react';
 import { IHandleChange, IFilterState } from '../../../../types';
 import styles from '../drawer.module.scss';
 import Effort from './Effort';
@@ -20,4 +20,4 @@ const EffortFilter: FC<IProps> = ({ effortLevels, handleChange, filter }) => (
 	</>
 );
 
-export default EffortFilter;
+export default memo(EffortFilter);

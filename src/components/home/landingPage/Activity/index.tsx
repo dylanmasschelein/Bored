@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import styles from '../landing.module.scss';
 import { useLocalStorage } from '../../../../../hooks/useLocalStorage';
 
@@ -15,11 +15,12 @@ interface IProps {
 	handleDelete?: () => void;
 	handleLockedActivity?: (a: IActivity) => void;
 	isLocked?: (a: IActivity) => boolean;
-	hideAction?: boolean;
+	favorite?: boolean;
 }
 
-const Activity: FC<IProps> = ({ activity, handleDelete, handleLockedActivity, isLocked, hideAction }) => {
+const Activity: FC<IProps> = ({ activity, handleDelete, handleLockedActivity, isLocked, favorite }) => {
 	const { handleFavorite, itemInStorage } = useLocalStorage('activityList', activity);
+
 	return (
 		<div className={styles.home__card} role="activity-card">
 			<div className={styles.home__card__header}>
@@ -37,7 +38,7 @@ const Activity: FC<IProps> = ({ activity, handleDelete, handleLockedActivity, is
 				handleDelete={handleDelete}
 				handleFavorite={handleFavorite}
 				favorited={Boolean(itemInStorage)}
-				hideAction={hideAction}
+				favorite={favorite}
 			/>
 		</div>
 	);

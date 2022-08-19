@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import styles from '../drawer.module.scss';
 import Activity from './Activity';
 import { IActivityObj, IHandleChange, IFilterState } from '../../../../types';
@@ -20,4 +20,4 @@ const ActivityFilter: FC<IProps> = ({ activities, handleChange, filter }) => (
 	</>
 );
 
-export default ActivityFilter;
+export default memo(ActivityFilter);

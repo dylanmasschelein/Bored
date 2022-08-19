@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { IHandleChange, IFilterState } from '../../../../types';
 import styles from '../drawer.module.scss';
 
@@ -23,4 +23,4 @@ const ParticipantsFilter: FC<IProps> = ({ handleChange, filter }) => (
 	</>
 );
 
-export default ParticipantsFilter;
+export default memo(ParticipantsFilter);
