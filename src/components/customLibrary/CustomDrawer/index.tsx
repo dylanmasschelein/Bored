@@ -75,7 +75,7 @@ const CustomDrawer: FC<IProps> = ({ open, toggleDrawer, handleChange, filter, ha
 	// const screenWidth = useWindowWidth();
 	return (
 		<SwipeableDrawer
-			aria-role="swipeable-drawer"
+			role="swipeable-drawer"
 			anchor={'bottom'}
 			// anchor={screenWidth < 450 ? 'bottom' : 'left'}
 			open={open}

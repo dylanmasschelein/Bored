@@ -78,27 +78,7 @@ describe('Filter Drawer', () => {
 	beforeEach(() => {
 		const handleChangeMock = jest.fn();
 		render(<CustomDrawer {...props} handleChange={handleChangeMock} />);
-
-		// const speedDial = screen.getByRole('button', {
-		// 	name: /speeddial/i
-		// });
-		// userEvent.hover(speedDial);
-
-		// const filterOption = screen.getByText(/filter/i);
-		// fireEvent.click(filterOption);
 	});
-
-	// afterAll(() => {
-	// 	const downArrow = screen.getByTestId('KeyboardArrowDownIcon');
-	// 	expect(downArrow).toBeInTheDocument();
-	// 	fireEvent.click(downArrow);
-
-	// 	expect(
-	// 		screen.getByRole('heading', {
-	// 			name: /Bored no more!/i
-	// 		})
-	// 	).toBeInTheDocument();
-	// });
 
 	describe('initialize filter drawer', () => {
 		it('down arrow is present in the filter drawer', () => {

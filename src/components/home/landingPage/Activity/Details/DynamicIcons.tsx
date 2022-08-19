@@ -26,7 +26,6 @@ const DynamicIcons: FC<IProps> = ({ activity, heading }) => {
 			num = 5;
 		}
 
-		let icons: any[] = [];
 		const initialSpan = [];
 		const secondarySpan = [];
 		for (let i = 0; i < num; i++) {
@@ -36,7 +35,7 @@ const DynamicIcons: FC<IProps> = ({ activity, heading }) => {
 				initialSpan.push('%');
 			}
 		}
-		// if (icons.length === 0) return type === 'price' ? 'Free' : 'None!';
+
 		for (let j = initialSpan.length; j < 5; j++) {
 			if (type === 'price') {
 				secondarySpan.push('$');

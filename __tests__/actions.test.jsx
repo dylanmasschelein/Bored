@@ -1,16 +1,7 @@
 import Actions from '../src/components/home/landingPage/Activity/Actions';
 import '@testing-library/jest-dom';
+import { singleMockResponse } from '../src/static/global_vars';
 import { render, screen, fireEvent } from '@testing-library/react';
-
-const singleMockResponse = {
-	activity: 'Take your dog on a walk',
-	type: 'relaxation',
-	participants: 1,
-	price: 0,
-	link: '',
-	key: '9318514',
-	accessibility: 0.2
-};
 
 const actionsProps = {
 	isLocked: jest.fn(),
@@ -67,7 +58,7 @@ describe('Action Icons', () => {
 
 			expect(handleLockedActivityMock).toBeCalled();
 		});
-		
+
 		it.todo('clicking the random button keeps the locked item in the activity list');
 	});
 });
