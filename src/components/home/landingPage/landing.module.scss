@@ -10,7 +10,7 @@
 		&__container {
 			position: relative;
 			margin: 0 auto;
-			max-width: 550px;
+			max-width: 1080px;
 		}
 
 		& h1 {
@@ -25,6 +25,7 @@
 		flex-wrap: wrap;
 		width: 100%;
 		margin: 0 auto;
+		max-width: 1280px;
 	}
 
 	&__card {

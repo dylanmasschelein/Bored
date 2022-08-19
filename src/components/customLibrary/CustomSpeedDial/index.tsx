@@ -45,7 +45,7 @@ const CustomSpeedDial: FC<IProps> = ({ toggleDrawer, handleFilter, favoritesPage
 		<SpeedDial
 			direction="down"
 			ariaLabel="SpeedDial"
-			sx={{ position: 'absolute', top: 0, right: 0 }}
+			sx={{ position: 'absolute', top: -6, right: 0 }}
 			className={styles.speed_dial_btn}
 			icon={<SpeedDialIcon />}
 		>
