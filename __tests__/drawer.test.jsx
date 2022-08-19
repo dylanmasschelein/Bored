@@ -145,10 +145,25 @@ describe('Filter Drawer', () => {
 			const typeOption = screen.getAllByRole('type-option')[0];
 			fireEvent.click(typeOption);
 
-			expect(handleChangeMock).toBeCalledWith(typeOption.name, typeOption.value);
+			expect(handleChangeMock).toBeCalledWith('type', 'education');
 		});
 
-		it.todo('clicking one then clicking a second replaces the first in state');
+		it('clicking one then clicking a second replaces the first in state', () => {
+			const handleChangeMock = jest.fn();
+			render(<CustomDrawer {...props} handleChange={handleChangeMock} />);
+
+			const educationOption = screen.getAllByRole('type-option')[0];
+			// const educationOption = screen.getByRole('type-option', { name: /education/i });
+
+			fireEvent.click(educationOption);
+			expect(handleChangeMock).toBeCalledWith('type', 'education');
+
+			// const recOption = screen.getByRole('type-option', { name: /recreational/i });
+			const recOption = screen.getAllByRole('type-option')[1];
+
+			fireEvent.click(recOption);
+			expect(handleChangeMock).toBeCalledWith('type', 'recreational');
+		});
 	});
 
 	describe('Price', () => {
@@ -160,47 +175,132 @@ describe('Filter Drawer', () => {
 			const priceOptions = screen.getAllByRole('price-option');
 			expect(priceOptions).toHaveLength(6);
 		});
+
 		it('clicking one adds the specific filter to state', () => {
 			const handleChangeMock = jest.fn();
 			render(<CustomDrawer {...props} handleChange={handleChangeMock} />);
 
-			const priceOption = screen.getAllByRole('price-option')[0];
+			const priceOption = screen.getAllByRole('price-option')[3];
 			fireEvent.click(priceOption);
 
-			expect(handleChangeMock).toBeCalled();
+			expect(handleChangeMock).toBeCalledWith('price', '0.6');
 		});
-		it.todo('clicking one then clicking a second replaces the first in state');
+
+		it('clicking one then clicking a second replaces the first in state', () => {
+			const handleChangeMock = jest.fn();
+			render(<CustomDrawer {...props} handleChange={handleChangeMock} />);
+
+			const $$$Option = screen.getAllByRole('price-option')[3];
+			fireEvent.click($$$Option);
+			expect(handleChangeMock).toBeCalledWith('price', '0.6');
+
+			const $$$$$Option = screen.getAllByRole('price-option')[5];
+			fireEvent.click($$$$$Option);
+			expect(handleChangeMock).toBeCalledWith('price', '1');
+		});
 	});
 
 	describe('Effort', () => {
 		it('renders a title', () => {
 			expect(screen.getByRole('heading', { name: /activity effort/i })).toBeInTheDocument();
 		});
+
 		it('renders a 6 effort options, each with a title', () => {
 			const effortOptions = screen.getAllByRole('effort-option');
 			expect(effortOptions).toHaveLength(6);
 		});
+
 		it('clicking one adds the specific filter to state', () => {
 			const handleChangeMock = jest.fn();
 			render(<CustomDrawer {...props} handleChange={handleChangeMock} />);
 
-			const effortOption = screen.getAllByRole('effort-option')[0];
-			fireEvent.click(effortOption);
+			const negligableOption = screen.getAllByRole('effort-option')[1];
+			fireEvent.click(negligableOption);
 
-			expect(handleChangeMock).toBeCalled();
+			expect(handleChangeMock).toBeCalledWith('accessibility', '0.2');
 		});
-		it.todo('clicking one then clicking a second replaces the first in state');
+
+		it('clicking one then clicking a second replaces the first in state', () => {
+			const handleChangeMock = jest.fn();
+			render(<CustomDrawer {...props} handleChange={handleChangeMock} />);
+
+			const negligableOption = screen.getAllByRole('effort-option')[1];
+			fireEvent.click(negligableOption);
+
+			expect(handleChangeMock).toBeCalledWith('accessibility', '0.2');
+
+			const maximumOption = screen.getAllByRole('effort-option')[5];
+			fireEvent.click(maximumOption);
+
+			expect(handleChangeMock).toBeCalledWith('accessibility', '1.0');
+		});
 	});
 
-	// describe('Buttons')
-	it.todo('both buttons render');
+	describe('Buttons', () => {
+		it('both buttons render', () => {
+			const findActivityBtn = screen.getByRole('button', {
+				name: /find activity/i
+			});
+			const clearFilterBtn = screen.getByRole('button', {
+				name: /clear filter/i
+			});
 
-	// describe('Find Activity')
-	it.todo(
-		'clicking tiggers a series of actions: a query is built, fetch functions is called, and a filtered set of activities are returned and set to state'
-	);
-	it.todo('clicking toggles the filter drawer closed');
+			expect(findActivityBtn).toBeInTheDocument();
+			expect(clearFilterBtn).toBeInTheDocument();
+		});
 
-	// describe('Clear Filter')
-	it.todo('clicking set the filter state fields to empty');
+		describe('Find Activity', () => {
+			it('clicking tiggers a series of actions: a query is built, fetch functions is called, and a filtered set of activities are returned and set to state', () => {
+				const handleFilterMock = jest.fn();
+				const handleChangeMock = jest.fn();
+				render(<CustomDrawer {...props} handleFilter={handleFilterMock} handleChange={handleChangeMock} />);
+				const findActivityBtn = screen.getByRole('button', {
+					name: /find activity/i
+				});
+				fireEvent.click(findActivityBtn);
+
+				expect(handleFilterMock).toBeCalledWith({
+					accessibility: '0',
+					participants: '2',
+					price: '0',
+					type: 'education'
+				});
+
+				// const priceOption = screen.getAllByRole('price-option')[3];
+				// fireEvent.click(priceOption);
+
+				// expect(handleChangeMock).toBeCalledWith('price', '0.6');
+
+				// expect(handleFilterMock).toBeCalledWith({
+				// 	accessibility: '0',
+				// 	participants: '2',
+				// 	price: '0.6',
+				// 	type: 'education'
+				// });
+			});
+			it('clicking toggles the filter drawer closed', () => {
+				// const toggleDrawerMock = jest.fn();
+				// render(<CustomDrawer {...props} toggleDrawer={toggleDrawerMock} />);
+				// const findActivityBtn = screen.getByRole('button', {
+				// 	name: /find activity/i
+				// });
+				// fireEvent.click(findActivityBtn);
+				// expect(toggleDrawerMock).toBeCalledTimes(1);
+			});
+		});
+
+		describe('Clear Filter', () => {
+			it('clicking set the filter state fields to empty', () => {
+				const clearFilterMock = jest.fn();
+				render(<CustomDrawer {...props} clearFilter={clearFilterMock} />);
+
+				const clearFilterBtn = screen.getByRole('button', {
+					name: /clear filter/i
+				});
+				fireEvent.click(clearFilterBtn);
+
+				expect(clearFilterMock).toBeCalledTimes(1);
+			});
+		});
+	});
 });
