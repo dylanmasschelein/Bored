@@ -2,12 +2,12 @@
 View the live version here -> (https://bored-khaki.vercel.app/)
 
 ## Description
-Have some free time and not sure what to do with it? Group of friends with no ideas for an activity? Use Bored No More! A simple application to randomly or filter activities, providing you and your friends with ideas to kill some time.
+Have some free time and not sure what to do with it? Group of friends with no ideas for an activity? Use Bored No More! A simple application to randomly find or filter activities, providing you and your friends with ideas to kill some time.
 
 ## Future additions include:  
 -> Proper error handling  
--> Collaborative room 
--> Swap out activity feature 
+-> Collaborative room  
+-> Swap out activity feature  
 -> And more!  
 
 ## Run project locally
