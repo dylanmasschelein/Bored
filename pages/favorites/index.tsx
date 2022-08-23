@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import Favorites from '../../src/components/favorites';
 
 interface IProps {}
