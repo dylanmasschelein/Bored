@@ -9,6 +9,7 @@ interface IProps {}
 
 const Favorites: FC<IProps> = () => {
 	const { store } = useLocalStorage('activityList');
+
 	return (
 		<>
 			<Header favoritesPage title="Favorites" />
